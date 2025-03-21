@@ -7,7 +7,6 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Testing](#testing)
-- [License](#license)
 
 ## Requirements
 You are developing software to account for maintenance tasks performed during a working day. This application has two types of users: Manager and Technician.
@@ -38,3 +37,17 @@ A task has a summary (max: 2500 characters) and a date when it was performed. Th
 ### Bonus
 - Use a message broker to decouple notification logic from the application flow.
 - Create Kubernetes object files needed to deploy this application.
+
+## Installation
+1. Clone the repository
+```bash
+git clone https://github.com/RazielRodrigues/sword-health-project.git
+```
+2. Change to the project directory
+```bash
+cd sword-health-project
+```
+3. Run the docker-compose
+```bash
+docker-compose up
+```

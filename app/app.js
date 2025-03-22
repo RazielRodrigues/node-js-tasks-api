@@ -1,13 +1,14 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
+
 app.use(cors({ origin: 'http://localhost:' + process.env.PORT }))
 app.use(express.json())
 app.listen(process.env.PORT, () => {
     console.log('Server ready: ' + process.env.PORT)
 })
 
-// Database
+// Base de dados
 const db = require('./src/model/index')
 db.sequelize.sync().then(() => { console.log('Database up'); }).catch((err) => { console.log(err); })
 

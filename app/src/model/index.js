@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize(
+const connection = new Sequelize(
     process.env.DB_NAME,
     process.env.DB_USERNAME,
     process.env.DB_PASSWORD,
@@ -12,12 +12,11 @@ const sequelize = new Sequelize(
 
 // Configurando a minha base de dados para a tarefa
 const database = {}
-database.sequelize = sequelize
-database.Sequelize = Sequelize
+database.connection = connection
 
 // Carregando os modelos de dados
-database.task = require('./task.js')(sequelize, Sequelize)
-database.user = require('./user.js')(sequelize, Sequelize)
+database.task = require('./task.js')(connection)
+database.user = require('./user.js')(connection)
 
 // Cardinalidades
 database.user.hasMany(database.task)

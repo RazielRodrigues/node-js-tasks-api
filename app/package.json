@@ -4,7 +4,7 @@
   "description": "Senior Backend Engineer Challenge",
   "main": "index.js",
   "scripts": {
-    "dev": "node --watch --env-file=.env app.js"
+    "start": "node --watch --env-file=.env app.js"
   },
   "repository": {
     "type": "git",

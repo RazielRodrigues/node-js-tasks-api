@@ -1,5 +1,7 @@
-module.exports = (sequelize, Sequelize) => {
-    const user = sequelize.define('usuario', {
+const { Sequelize } = require('sequelize');
+
+module.exports = (connection) => {
+    const user = connection.define('usuario', {
         email: {
             type: Sequelize.STRING,
         },

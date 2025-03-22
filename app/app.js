@@ -10,7 +10,7 @@ app.listen(process.env.PORT, () => {
 
 // Base de dados
 const db = require('./src/model/index')
-db.sequelize.sync().then(() => { console.log('Database up'); }).catch((err) => { console.log(err); })
+db.connection.sync().then(() => { console.log('Database up'); }).catch((err) => { console.log(err); })
 
 // Controllers
 // • We’ll evaluate security, quality and readability of your code;

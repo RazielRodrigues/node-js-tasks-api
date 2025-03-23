@@ -47,7 +47,7 @@ git clone https://github.com/RazielRodrigues/sword-health-project.git
 ```
 2. Change to the project directory
 ```bash
-cd sword-health-project
+cd sword-health-tasks-api
 ```
 3. Run the docker-compose
 ```bash

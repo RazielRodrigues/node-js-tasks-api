@@ -43,7 +43,7 @@ A task has a summary (max: 2500 characters) and a date when it was performed. Th
 ## Installation
 1. Clone the repository
 ```bash
-git clone https://github.com/RazielRodrigues/sword-health-project.git
+git clone https://github.com/RazielRodrigues/sword-health-tasks-api.git
 ```
 2. Change to the project directory
 ```bash

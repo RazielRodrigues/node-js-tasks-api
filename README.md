@@ -1,6 +1,6 @@
 # Sword Tasks API (Senior Backend Engineer Challenge)
 
-<img src="./sword.jpg />
+<img src="./sword.jpg" />
 
 ## Table of Contents
 - [Requirements](#requirements)

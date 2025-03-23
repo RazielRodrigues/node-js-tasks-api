@@ -3,18 +3,17 @@ const router = express.Router()
 const database = require('../model/index');
 const { taskModel, userModel } = database;
 
+// todo: transfer to other file
 const ROLE_MANAGER = 1
 const ROLE_TECHNICIAN = 2
 
-// create
 router.post('/', async (req, res) => {
     try {
         const user = await userModel.findOne({ where: { email: req.user.email } });
 
         const data = await taskModel.create({
-            summary: req.body.summary,
-            completed_at: req.body.completed ? new Date() : null,
-            status: req.body.status,
+            summary: req.body.summary, // todo: add encryption
+            completed_at: null,
             userId: user.id
         })
 
@@ -24,7 +23,6 @@ router.post('/', async (req, res) => {
     }
 })
 
-// read all
 router.get('/', async (req, res) => {
     try {
         const user = await userModel.findOne({ where: { email: req.user.email } });
@@ -43,7 +41,6 @@ router.get('/', async (req, res) => {
     }
 })
 
-// read one
 router.get('/:id', async (req, res) => {
     try {
         const user = await userModel.findOne({ where: { email: req.user.email } });
@@ -62,7 +59,6 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-// update
 router.put('/:id', async (req, res) => {
     try {
         const user = await userModel.findOne({ where: { email: req.user.email } });
@@ -76,7 +72,7 @@ router.put('/:id', async (req, res) => {
         }
 
         const data = await taskModel.update({
-            summary: req.body.summary,
+            summary: req.body.summary, // todo: add encryption
             completed_at: req.body.completed ? new Date() : null,
         }, { where: { id: req.params.id, } })
 
@@ -86,7 +82,6 @@ router.put('/:id', async (req, res) => {
     }
 })
 
-// delete
 router.delete('/:id', async (req, res) => {
     try {
         const user = await userModel.findOne({ where: { email: req.user.email } });
@@ -98,13 +93,8 @@ router.delete('/:id', async (req, res) => {
         if (!task) {
             res.status(404).json({ data: `Task not found for ID #${req.params.id}` })
         }
-        console.log(user)
 
-        const data = await taskModel.destroy({
-            where: {
-                id: task.id
-            }
-        })
+        const data = await taskModel.destroy({ where: { id: task.id } })
 
         res.status(200).json({ data: data })
     } catch (error) {
@@ -112,7 +102,6 @@ router.delete('/:id', async (req, res) => {
     }
 })
 
-// completed task
 router.put('/completed/:id', async (req, res) => {
     try {
         const user = await userModel.findOne({ where: { email: req.user.email } });
@@ -131,7 +120,7 @@ router.put('/completed/:id', async (req, res) => {
             completed_at: new Date(),
         }, { where: { id: req.params.id, } })
 
-        // notification
+        // todo: add message broker
         console.log(`Task with ID #${req.params.id} updated to complete`);
 
         res.status(200).json({ data: data })

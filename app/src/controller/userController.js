@@ -4,7 +4,6 @@ const database = require('../model/index')
 const bcrypt = require('bcryptjs');
 const { userModel } = database;
 
-// create
 router.post('/', async (req, res) => {
     try {
         const user = await userModel.findOne({ where: { email: req.body.email } });
@@ -31,13 +30,12 @@ router.post('/', async (req, res) => {
     }
 })
 
-// read all
 router.get('/', async (req, res) => {
     try {
         const data = await userModel.findAll();
 
         if (!data) {
-            res.status(204).json({ data: [] })
+            res.status(204).json({ data: data })
         }
 
         res.status(200).json({ data: data })
@@ -46,13 +44,12 @@ router.get('/', async (req, res) => {
     }
 })
 
-// read one
 router.get('/:id', async (req, res) => {
     try {
         const data = await userModel.findOne({ where: { id: req.params.id } })
 
         if (!data) {
-            res.status(404).json({ data: `User not found for ID #${req.body.userId}` })
+            res.status(404).json({ data: `User not found for ID #${req.params.id}` })
         }
 
         res.status(200).json({ data: data })
@@ -61,18 +58,19 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-// update
 router.put('/:id', async (req, res) => {
     try {
-
         const user = await userModel.findOne({ where: { id: req.params.id } });
+
         if (!user) {
-            res.status(404).json({ data: `User not found for ID #${req.body.userId}` })
+            res.status(404).json({ data: `User not found for ID #${req.params.id}` })
         }
+
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
         const data = await userModel.update({
             email: req.body.email,
-            password: req.body.password,
+            password: hashedPassword,
             role: req.body.role,
         }, { where: { id: req.params.id, } })
 
@@ -83,14 +81,13 @@ router.put('/:id', async (req, res) => {
     }
 })
 
-// delete
 router.delete('/:id', async (req, res) => {
     try {
 
         const user = await userModel.findOne({ where: { id: req.params.id } });
 
         if (!user) {
-            res.status(404).json({ data: `User not found for ID #${req.body.userId}` })
+            res.status(404).json({ data: `User not found for ID #${req.params.id}` })
         }
 
         const data = await userModel.destroy({ where: { id: user.id } })

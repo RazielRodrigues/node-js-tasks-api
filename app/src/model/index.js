@@ -13,11 +13,9 @@ const connection = new Sequelize(
 const database = {}
 database.connection = connection
 
-// Carregando os modelos de dados
 database.taskModel = require('./taskModel.js')(connection)
 database.userModel = require('./userModel.js')(connection)
 
-// Cardinalidades
 database.userModel.hasMany(database.taskModel)
 database.taskModel.belongsTo(database.userModel)
 

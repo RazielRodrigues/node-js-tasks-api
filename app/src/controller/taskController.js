@@ -1,44 +1,93 @@
 const express = require('express')
 const router = express.Router()
-const db = require('./src/model/index')
-const task = require('./src/model/task')
+const database = require('../model/index')
+const { taskModel } = database;
 
-router.get('/', async (req, res) => {
-    await db.user.create({
-        email: 'mail@mail.com',
-        password: '12345678',
-        role: 1,
-    })
+// create
+router.post('/', async (req, res) => {
+    let data = null;
 
-    await db.user.update({
-        email: 'mail@update.com',
-        password: '12345678',
-        role: 'manager',
-    }, { where: { id: 1, } })
-
-    await db.user.update({
-        email: 'mail@update.com',
-        password: '12345678',
-        role: 2,
-    }, { where: { id: 1, } })
-
-    const users = await db.user.findAll({ include: db.task })
-
-    await db.task.create({
-        summary: 'mail@mail.com',
+    data = await taskModel.create({
+        summary: 'mail@mail.com' + Math.random(),
         completed_at: null,
         status: 1,
         usuarioId: 1
     })
 
-    const tasks = await db.task.findAll({
+    res.json({
+        status: 200,
+        data: data
+    })
+})
+
+// read
+router.get('/', async (req, res) => {
+    let data = null;
+
+    if (req.params.id) {
+        data = await taskModel.findByPK(req.params.id);
+    }
+
+    data = await taskModel.findAll();
+
+    res.json({
+        status: 200,
+        data: data
+    })
+})
+
+// update
+router.put('/', async (req, res) => {
+
+    if (!req.params.id) {
+        res.json({
+            status: 500,
+        })
+    }
+
+    const task = taskModel.findByPK(req.params.id)
+    if (!task) {
+        res.json({
+            status: 404,
+        })
+    }
+
+    await taskModel.update({
+        summary: 'mail@mail.com' + Math.random(),
+        completed_at: null,
+        status: 1,
+        // usuarioId: 1
+    }, { where: { id: req.params.id, } })
+
+    res.json({
+        status: 200,
+    })
+})
+
+// delete
+router.delete('/', async (req, res) => {
+
+    if (!req.params.id) {
+        res.json({
+            status: 500,
+        })
+    }
+
+    const task = taskModel.findByPK(req.params.id)
+    if (!task) {
+        res.json({
+            status: 404,
+        })
+    }
+
+    await taskModel.destroy({
         where: {
-            usuarioId: 2
+            id: task.id
         }
     })
 
     res.json({
-        users: users,
+        status: 200,
     })
 })
 

@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
+const database = require('./src/model/index')
 
 app.use(cors({ origin: process.env.CORS_ORIGIN + process.env.PORT }))
 app.use(express.json())
@@ -9,11 +10,14 @@ app.listen(process.env.PORT, () => {
 })
 
 // Sync da base de dados (adicionar migrations?)
-db.connection.sync().then(() => { console.log('Database Connected...'); }).catch((err) => { console.log(err); })
+database.connection.sync().then(() => { console.log('Database Connected...'); }).catch((err) => { console.log(err); })
 
 // Registrando controllers e rotas
-const taskController = require('./src/routes/taskController')
+const homeController = require('./src/controller/homeController')
+app.get('/', homeController)
+
+const taskController = require('./src/controller/taskController')
 app.get('/task', taskController)
 
-const userController = require('./src/routes/userController')
+const userController = require('./src/controller/userController')
 app.get('/user', userController)

@@ -13,6 +13,10 @@ router.post('/', async (req, res) => {
             res.status(400).json({ data: 'Email already exists' });
         }
 
+        if (req.body.password.length < 8) {
+            res.status(400).json({ data: 'Your password should be at least 8 digits' });
+        }
+
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
         const data = await userModel.create({

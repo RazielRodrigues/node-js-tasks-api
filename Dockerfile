@@ -2,16 +2,17 @@
 FROM node:latest
 
 # Set the working directory
-WORKDIR /.
+WORKDIR /
 
 # Copy only package.json and package-lock.json first for caching
-COPY ./package*.json ./
+COPY ./app/package*.json ./
+COPY ./app/.env ./
 
 # Install dependencies
 RUN npm install
 
 # Copy the rest of the application files
-COPY . .
+COPY ./ .
 
 # Expose the default Vite port (change if needed)
 EXPOSE 3000

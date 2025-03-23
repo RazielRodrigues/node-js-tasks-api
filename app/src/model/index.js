@@ -14,11 +14,11 @@ const database = {}
 database.connection = connection
 
 // Carregando os modelos de dados
-database.task = require('./task.js')(connection)
-database.user = require('./user.js')(connection)
+database.taskModel = require('./taskModel.js')(connection)
+database.userModel = require('./userModel.js')(connection)
 
 // Cardinalidades
-database.user.hasMany(database.task)
-database.task.belongsTo(database.user)
+database.userModel.hasMany(database.taskModel)
+database.taskModel.belongsTo(database.userModel)
 
 module.exports = database

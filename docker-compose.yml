@@ -15,8 +15,8 @@ services:
   mysql:
     image: mysql:latest
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: tasks
+      MYSQL_ROOT_PASSWORD: sword_health
+      MYSQL_DATABASE: sword_health_tasks_api
     ports:
       - "3306:3306"
     volumes:

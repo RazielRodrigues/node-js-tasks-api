@@ -10,7 +10,6 @@ const connection = new Sequelize(
     }
 )
 
-// Configurando a minha base de dados para a tarefa
 const database = {}
 database.connection = connection
 

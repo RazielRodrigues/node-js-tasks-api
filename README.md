@@ -1,5 +1,23 @@
 # Sword Health: Senior Backend Engineer Challenge
 
+// Controllers
+// • We’ll evaluate security, quality and readability of your code;
+// The technician performs tasks and is only able to see, create or update his own
+// performed tasks.
+// The manager can see tasks from all the technicians, delete them, and should be
+// notified when some tech performs a task
+
+// Features:
+// • Create API endpoint to save a new task;
+// • Create API endpoint to list tasks;
+// • Notify manager of each task performed by the tech(This notification can be
+// just a print saying “The tech X performed the task Y on date Z”);
+// • This notification should not block any http request.
+
+// Bonus
+// • Use a message broker to decouple notification logic from the application flow;
+// • Create Kubernetes object files needed to deploy this application.
+
 ## Table of Contents
 - [Requirements](#requirements)
 - [Features](#features)

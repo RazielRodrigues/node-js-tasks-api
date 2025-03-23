@@ -1,21 +1,21 @@
 {
-  "name": "sword-health-project",
+  "name": "sword-health-tasks-api",
   "version": "1.0.0",
-  "description": "Senior Backend Engineer Challenge",
-  "main": "index.js",
+  "description": "Sword health tasks api",
+  "main": "app.js",
   "scripts": {
     "start": "node --watch --env-file=.env app.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RazielRodrigues/sword-health-project.git"
+    "url": "git+https://github.com/RazielRodrigues/sword-health-tasks-api.git"
   },
   "author": "Raziel Rodrigues",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/RazielRodrigues/sword-health-project/issues"
+    "url": "https://github.com/RazielRodrigues/sword-health-tasks-api/issues"
   },
-  "homepage": "https://github.com/RazielRodrigues/sword-health-project#readme",
+  "homepage": "https://github.com/RazielRodrigues/sword-health-tasks-api#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.21.2",

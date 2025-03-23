@@ -5,112 +5,105 @@ const { taskModel, userModel } = database;
 
 // create
 router.post('/', async (req, res) => {
+    try {
+        const user = await userModel.findOne({ where: { id: req.body.userId } });
 
-    const user = await userModel.findOne({ where: { id: req.body.userId } });
-    if (!user) {
-        res.json({
-            status: 404,
-            data: `User not found for id #${req.body.userId}`
+        if (!user) {
+            res.status(404).json({ data: `User not found for ID #${req.body.userId}` })
+        }
+
+        const data = await taskModel.create({
+            summary: req.body.summary,
+            completed_at: req.body.completed ? new Date() : null,
+            status: req.body.status,
+            userId: user.id
         })
-        res.status(404)
+
+        res.status(201).json({ data: data })
+    } catch (error) {
+        res.status(500).json({ data: 'Internal server error' });
     }
-
-    const data = await taskModel.create({
-        summary: req.body.summary,
-        completed_at: req.body.completed ? new Date() : null,
-        status: req.body.status,
-        userId: user.id
-    })
-
-    res.json({ status: 201, data: data })
-    res.status(201)
 })
 
 // read all
 router.get('/', async (req, res) => {
+    try {
+        const data = await taskModel.findAll();
 
-    const data = await taskModel.findAll();
-    if (!data) {
-        res.json({
-            status: 204,
-            data: []
-        })
-        res.status(204)
+        if (!data) {
+            res.status(204).json({ data: data })
+        }
+
+        res.status(200).json({ data: data })
+    } catch (error) {
+        res.status(500).json({ data: 'Internal server error' });
     }
-
-    res.json({ status: 200, data: data })
-    res.status(200)
 })
 
 // read one
 router.get('/:id', async (req, res) => {
+    try {
+        const data = await taskModel.findOne({ where: { id: req.params.id } });
 
-    const data = await taskModel.findOne({ where: { id: req.params.id } });
-    if (!data) {
-        res.json({
-            status: 404,
-            data: `Task not found for id #${req.params.id}`
-        })
-        res.status(404)
+        if (!data) {
+            res.status(404).json({ data: `Task not found for ID #${req.params.id}` })
+        }
+
+        res.status(200).json({ data: data })
+    } catch (error) {
+        res.status(500).json({ data: 'Internal server error' });
     }
-
-    res.json({ status: 200, data: data })
-    res.status(200)
-
 })
 
 // update
 router.put('/:id', async (req, res) => {
+    try {
 
-    const task = await taskModel.findOne({ where: { id: req.params.id } });
-    if (!task) {
-        res.json({
-            status: 404,
-            data: `Task not found for id #${req.params.id}`
-        })
-        res.status(404)
+        const task = await taskModel.findOne({ where: { id: req.params.id } });
+
+        if (!task) {
+            res.status(404).json({ data: `Task not found for ID #${req.params.id}` })
+        }
+
+        const user = await userModel.findOne({ where: { id: req.body.userId } });
+
+        if (!user) {
+            res.status(404).json({ data: `User not found for ID #${req.body.userId}` })
+        }
+
+        const data = await taskModel.update({
+            summary: req.body.summary,
+            completed_at: req.body.completed ? new Date() : null,
+            status: req.body.status,
+            userId: user.id
+        }, { where: { id: req.params.id, } })
+
+        res.status(200).json({ data: data })
+    } catch (error) {
+        res.status(500).json({ data: 'Internal server error' });
     }
-
-    const user = await userModel.findOne({ where: { id: req.body.userId } });
-    if (!user) {
-        res.json({
-            status: 404,
-            data: `User not found for id #${req.body.userId}`
-        })
-        res.status(404)
-    }
-
-    const data = await taskModel.update({
-        summary: req.body.summary,
-        completed_at: req.body.completed ? new Date() : null,
-        status: req.body.status,
-        userId: user.id
-    }, { where: { id: req.params.id, } })
-
-    res.json({ status: 200, data: data })
-    res.status(200)
 })
 
 // delete
 router.delete('/:id', async (req, res) => {
+    try {
 
-    const task = await taskModel.findOne({ where: { id: req.params.id } });
-    if (!task) {
-        res.json({
-            status: 404,
-            data: `Task not found for id #${req.params.id}`
-        })
-        res.status(404)
-    }
+        const task = await taskModel.findOne({ where: { id: req.params.id } });
 
-    const data = await taskModel.destroy({
-        where: {
-            id: task.id
+        if (!task) {
+            res.status(404).json({ data: `Task not found for ID #${req.params.id}` })
         }
-    })
 
-    res.json({ status: 200, data: data })
-    res.status(200)
+        const data = await taskModel.destroy({
+            where: {
+                id: task.id
+            }
+        })
+
+        res.status(200).json({ data: data })
+    } catch (error) {
+        res.status(500).json({ data: 'Internal server error' });
+    }
 })
 
 module.exports = router

@@ -1,94 +1,116 @@
 const express = require('express')
 const router = express.Router()
-const database = require('../model/index')
-const { taskModel } = database;
+const database = require('../model/index');
+const { taskModel, userModel } = database;
 
 // create
 router.post('/', async (req, res) => {
-    let data = null;
 
-    data = await taskModel.create({
-        summary: 'mail@mail.com' + Math.random(),
-        completed_at: null,
-        status: 1,
-        usuarioId: 1
-    })
-
-    res.json({
-        status: 200,
-        data: data
-    })
-})
-
-// read
-router.get('/', async (req, res) => {
-    let data = null;
-
-    if (req.params.id) {
-        data = await taskModel.findByPK(req.params.id);
+    const user = await userModel.findOne({ where: { id: req.body.userId } });
+    if (!user) {
+        res.json({
+            status: 404,
+            data: `User not found for id #${req.body.userId}`
+        })
+        res.status(404)
     }
 
-    data = await taskModel.findAll();
-
-    res.json({
-        status: 200,
-        data: data
+    const data = await taskModel.create({
+        summary: req.body.summary,
+        completed_at: req.body.completed ? new Date() : null,
+        status: req.body.status,
+        userId: user.id
     })
+
+    res.json({ status: 201, data: data })
+    res.status(201)
+})
+
+// read all
+router.get('/', async (req, res) => {
+
+    const data = await taskModel.findAll();
+    if (!data) {
+        res.json({
+            status: 204,
+            data: []
+        })
+        res.status(204)
+    }
+
+    res.json({ status: 200, data: data })
+    res.status(200)
+})
+
+// read one
+router.get('/:id', async (req, res) => {
+
+    const data = await taskModel.findOne({ where: { id: req.params.id } });
+    if (!data) {
+        res.json({
+            status: 404,
+            data: `Task not found for id #${req.params.id}`
+        })
+        res.status(404)
+    }
+
+    res.json({ status: 200, data: data })
+    res.status(200)
+
 })
 
 // update
-router.put('/', async (req, res) => {
+router.put('/:id', async (req, res) => {
 
-    if (!req.params.id) {
-        res.json({
-            status: 500,
-        })
-    }
-
-    const task = taskModel.findByPK(req.params.id)
+    const task = await taskModel.findOne({ where: { id: req.params.id } });
     if (!task) {
         res.json({
             status: 404,
+            data: `Task not found for id #${req.params.id}`
         })
+        res.status(404)
     }
 
-    await taskModel.update({
-        summary: 'mail@mail.com' + Math.random(),
-        completed_at: null,
-        status: 1,
-        // usuarioId: 1
+    const user = await userModel.findOne({ where: { id: req.body.userId } });
+    if (!user) {
+        res.json({
+            status: 404,
+            data: `User not found for id #${req.body.userId}`
+        })
+        res.status(404)
+    }
+
+    const data = await taskModel.update({
+        summary: req.body.summary,
+        completed_at: req.body.completed ? new Date() : null,
+        status: req.body.status,
+        userId: user.id
     }, { where: { id: req.params.id, } })
 
-    res.json({
-        status: 200,
-    })
+    res.json({ status: 200, data: data })
+    res.status(200)
 })
 
 // delete
-router.delete('/', async (req, res) => {
+router.delete('/:id', async (req, res) => {
 
-    if (!req.params.id) {
-        res.json({
-            status: 500,
-        })
-    }
-
-    const task = taskModel.findByPK(req.params.id)
+    const task = await taskModel.findOne({ where: { id: req.params.id } });
     if (!task) {
         res.json({
             status: 404,
+            data: `Task not found for id #${req.params.id}`
         })
+        res.status(404)
     }
 
-    await taskModel.destroy({
+    const data = await taskModel.destroy({
         where: {
             id: task.id
         }
     })
 
-    res.json({
-        status: 200,
-    })
+    res.json({ status: 200, data: data })
+    res.status(200)
 })
 
 module.exports = router

@@ -5,88 +5,91 @@ const { userModel } = database;
 
 // create
 router.post('/', async (req, res) => {
-    let data = null;
 
-    data = await userModel.create({
-        email: 'tech@mail.com',
-        password: 12345678,
-        role: 'technician',
+    const data = await userModel.create({
+        email: req.body.email,
+        password: req.body.password,
+        role: req.body.role,
     })
 
-    res.json({
-        status: 200,
-        data: data
-    })
+    res.json({ status: 201, data: data })
+    res.status(201)
 })
 
-// read
+// read all
 router.get('/', async (req, res) => {
-    let data = null;
 
-    if (req.params.id) {
-        data = await userModel.findByPK(req.params.id);
+    const data = await userModel.findAll();
+    if (!data) {
+        res.json({
+            status: 204,
+            data: []
+        })
+        res.status(204)
     }
 
-    data = await userModel.findAll();
+    res.json({ status: 200, data: data })
+    res.status(200)
+})
 
-    res.json({
-        status: 200,
-        data: data
-    })
+// read one
+router.get('/:id', async (req, res) => {
+
+    const data = await userModel.findOne({ where: { id: req.params.id } });
+    if (!data) {
+        res.json({
+            status: 404,
+            data: `User not found for id #${req.params.id}`
+        })
+        res.status(404)
+    }
+
+    res.json({ status: 200, data: data })
+    res.status(200)
 })
 
 // update
-router.put('/', async (req, res) => {
+router.put('/:id', async (req, res) => {
 
-    if (!req.params.id) {
-        res.json({
-            status: 500,
-        })
-    }
-
-    const user = userModel.findByPK(req.params.id)
+    const user = await userModel.findOne({ where: { id: req.params.id } });
     if (!user) {
         res.json({
             status: 404,
+            data: `User not found for id #${req.params.id}`
         })
+        res.status(404)
     }
 
-    await userModel.update({
-        email: 'tech@mail.update.com',
-        password: 12345678,
-        role: 'technician',
+    const data = await userModel.update({
+        email: req.body.email,
+        password: req.body.password,
+        role: req.body.role,
     }, { where: { id: req.params.id, } })
 
-    res.json({
-        status: 200,
-    })
+    res.json({ status: 200, data: data })
+    res.status(200)
 })
 
 // delete
-router.delete('/', async (req, res) => {
+router.delete('/:id', async (req, res) => {
 
-    if (!req.params.id) {
-        res.json({
-            status: 500,
-        })
-    }
-
-    const user = userModel.findByPK(req.params.id)
+    const user = await userModel.findOne({ where: { id: req.params.id } });
     if (!user) {
         res.json({
             status: 404,
+            data: `User not found for id #${req.params.id}`
         })
+        res.status(404)
     }
 
-    await userModel.destroy({
+    const data = await userModel.destroy({
         where: {
             id: user.id
         }
     })
 
-    res.json({
-        status: 200,
-    })
+    res.json({ status: 200, data: data })
+    res.status(200)
 })
 
 module.exports = router

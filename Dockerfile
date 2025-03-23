@@ -1,11 +1,6 @@
 # Use the Node LTS image
 FROM node:latest
 
-ADD cert.crt /usr/local/share/ca-certificates/cert.crt
-RUN update-ca-certificates
-
-RUN npm config set cafile /usr/local/share/ca-certificates/cert.crt
-
 # Set the working directory
 WORKDIR /.
 

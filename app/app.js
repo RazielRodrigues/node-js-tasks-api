@@ -14,10 +14,10 @@ database.connection.sync().then(() => { console.log('Database Connected...'); })
 
 // Registrando controllers e rotas
 const homeController = require('./src/controller/homeController')
-app.get('/', homeController)
+app.use('/', homeController)
 
 const taskController = require('./src/controller/taskController')
-app.get('/task', taskController)
+app.use('/task', taskController)
 
 const userController = require('./src/controller/userController')
-app.get('/user', userController)
+app.use('/user', userController)

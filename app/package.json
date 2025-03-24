@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node --watch --env-file=.env app.js",
     "test": "nyc --reporter=text mocha --no-warnings --recursive \"test/**/*.js\"",
-    "test-coverage": "nyc --reporter=html mocha"
+    "test:unit": "nyc --reporter=text mocha --no-warnings --recursive \"test/unit/**/*.js\"",
+    "test:coverage": "nyc --reporter=html mocha",
+    "test:integration": "nyc --reporter=text mocha --no-warnings --recursive \"test/integration/**/*.js\""
   },
   "repository": {
     "type": "git",
@@ -25,14 +27,14 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.14.0",
-    "sequelize": "^6.37.6",
-    "sinon": "^19.0.4",
-    "supertest": "^7.1.0"
+    "sequelize": "^6.37.6"
   },
   "devDependencies": {
+    "axios": "^1.8.4",
     "chai": "^5.2.0",
     "mocha": "^11.1.0",
     "nyc": "^17.1.0",
-    "sequelize-mock": "^0.10.2"
+    "sequelize-mock": "^0.10.2",
+    "sinon": "^20.0.0"
   }
 }

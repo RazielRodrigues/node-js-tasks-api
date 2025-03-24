@@ -3,7 +3,7 @@ const { Sequelize } = require('sequelize');
 module.exports = (connection) => {
     const taskModel = connection.define('task', {
         summary: {
-            type: Sequelize.STRING, // talvez encryptar
+            type: Sequelize.STRING,
             length: 2500,
             allowNull: false,
             validate: {

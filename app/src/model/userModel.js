@@ -12,7 +12,7 @@ module.exports = (connection) => {
             }
         },
         password: {
-            type: Sequelize.STRING, // aplicar segurança!
+            type: Sequelize.STRING,
             length: 255,
             allowNull: false,
             validate: {

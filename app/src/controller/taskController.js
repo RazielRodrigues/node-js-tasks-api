@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const database = require('../model/index');
 const { taskModel, userModel } = database;
+const amqp = require('amqplib');
 
 // todo: transfer to other file
 const ROLE_MANAGER = 1
@@ -10,6 +11,10 @@ const ROLE_TECHNICIAN = 2
 router.post('/', async (req, res) => {
     try {
         const user = await userModel.findOne({ where: { email: req.user.email } });
+
+        if (user.role !== ROLE_TECHNICIAN) {
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
 
         const data = await taskModel.create({
             summary: req.body.summary, // todo: add encryption
@@ -120,8 +125,25 @@ router.put('/completed/:id', async (req, res) => {
             completed_at: new Date(),
         }, { where: { id: req.params.id, } })
 
-        // todo: add message broker
-        console.log(`Task with ID #${req.params.id} updated to complete`);
+        const exchange = 'logs';
+        const text = `Task with ID #${req.params.id} updated to complete`;
+        (async () => {
+            let connection;
+            try {
+                connection = await amqp.connect('amqp://localhost');
+                const channel = await connection.createChannel();
+                await channel.assertExchange(exchange, 'fanout', { durable: false });
+                channel.publish(exchange, '', Buffer.from(text));
+                console.log(" [x] Sent '%s'", text);
+                await channel.close();
+            }
+            catch (err) {
+                console.warn(err);
+            }
+            finally {
+                if (connection) await connection.close();
+            };
+        })();  
 
         res.status(200).json({ data: data })
     } catch (error) {

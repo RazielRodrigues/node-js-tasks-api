@@ -3,10 +3,41 @@ const cors = require('cors')
 const jwt = require('jsonwebtoken');
 const app = express()
 const database = require('./src/model/index')
+const amqp = require('amqplib');
 
 app.use(cors({ origin: process.env.CORS_ORIGIN + process.env.PORT }))
 app.use(express.json())
 app.listen(process.env.PORT, () => {
+
+    // Message broker com rabbimq https://github.com/amqp-node/amqplib/tree/main/examples/tutorials
+    (async () => {
+        try {
+
+            const exchange = 'logs';
+            const connection = await amqp.connect(process.env.MESSAGE_BROKER);
+            const channel = await connection.createChannel();
+
+            process.once('SIGINT', async () => {
+                await channel.close();
+                await connection.close();
+            });
+
+            await channel.assertExchange(exchange, 'fanout', { durable: false });
+
+            const { queue } = await channel.assertQueue('', { exclusive: true });
+            await channel.bindQueue(queue, exchange, '')
+
+            await channel.consume(queue, (message) => {
+                if (message) console.log(" [x] '%s'", message.content.toString());
+                else console.warn(' [x] Consumer cancelled');
+            }, { noAck: true });
+
+            console.log(' [*] Waiting for logs. To exit press CTRL+C');
+        } catch (err) {
+            console.warn(err);
+        }
+    })();
+
     console.log('Sword health tasks api ready: ' + process.env.PORT)
 })
 

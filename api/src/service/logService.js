@@ -3,7 +3,7 @@ const amqp = require('amqplib');
 const startLog = async () => {
     let connection = null;
     try {
-        connection = await amqp.connect(process.env.MESSAGE_BROKER);
+        connection = await amqp.connect('amqp://' + process.env.RABBITMQ_HOST + ':' + process.env.RABBITMQ_PORT);
         const channel = await connection.createChannel();
 
         process.once('SIGINT', async () => {
@@ -29,7 +29,7 @@ const startLog = async () => {
 const sendLog = async (text) => {
     let connection = null;
     try {
-        connection = await amqp.connect(process.env.MESSAGE_BROKER);
+        connection = await amqp.connect('amqp://' + process.env.RABBITMQ_HOST + ':' + process.env.RABBITMQ_PORT);
         const channel = await connection.createChannel();
 
         await channel.assertExchange('logs', 'fanout', { durable: false });

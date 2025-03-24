@@ -9,6 +9,9 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Testing](#testing)
+- [Tech stack](#tech-stack)
+- [Usage](#usage)
+- [System Design](#system-design)
 
 ## Requirements
 You are developing software to account for maintenance tasks performed during a working day. This application has two types of users: Manager and Technician.
@@ -54,17 +57,32 @@ cd sword-health-tasks-api
 docker-compose up
 ```
 
+## Testing
+  - Run tests
+```bash
+npm run test
+```
+- Access coverage (accessing index.html in coverage folder)
+```bash
+npm run test-coverage
+```
+
+## Tech stack
+- NodeJS (Javascript)
+- RabbitMQ
+- Docker
+- Vercel
+- MySQL
+- GIT
+- CORS
+- Express JS
+- JWT
+- Sequelize ORM
+- Mocha
+. Istanbul
+
 ## Usage
 ...
 
-## Testing
-...
-
-## Tech stack
-...
-
-## System design
-...
-
-## Further improvements
+## System Design
 ...

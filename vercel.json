@@ -2,23 +2,18 @@
     "version": 2,
     "builds": [
         {
-            "src": "app/src/app.js",
+            "src": "api/**/*.js",
             "use": "@vercel/node"
         }
     ],
     "routes": [
         {
+            "src": "/api/(.*)",
+            "dest": "api/$1"
+        },
+        {
             "src": "/(.*)",
-            "dest": "app/src/app.js"
+            "dest": "api/index.js"
         }
-    ],
-    "env": {
-        "NODE_ENV": "production"
-    },
-    "regions": [
-        "cdg1"
-    ],
-    "github": {
-        "silent": true
-    }
+    ]
 }

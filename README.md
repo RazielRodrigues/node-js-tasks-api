@@ -1,4 +1,4 @@
-# Sword Tasks API
+# Sword Health Tasks API
 
 <img src="./doc/sword.jpg" />
 

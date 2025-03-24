@@ -1,4 +1,4 @@
-# Sword Tasks API (Senior Backend Engineer Challenge)
+# Sword Tasks API
 
 <img src="./doc/sword.jpg" />
 

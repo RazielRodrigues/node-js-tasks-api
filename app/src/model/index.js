@@ -13,6 +13,7 @@ const connection = new Sequelize(
 const database = {}
 database.connection = connection
 
+// Podia adicionar migrations...
 database.taskModel = require('./taskModel.js')(connection)
 database.userModel = require('./userModel.js')(connection)
 

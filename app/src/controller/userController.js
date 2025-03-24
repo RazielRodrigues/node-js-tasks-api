@@ -4,6 +4,7 @@ const database = require('../model/index')
 const bcrypt = require('bcryptjs');
 const { userModel } = database;
 const verifyToken = require('../service/verifyTokenService')
+const { ROLE_MANAGER } = require('../model/enum');
 
 router.post('/', async (req, res) => {
     try {
@@ -33,6 +34,12 @@ router.post('/', async (req, res) => {
 
 router.get('/', verifyToken, async (req, res) => {
     try {
+        const loggedUser = await userModel.findOne({ where: { email: req.user.email } });
+
+        if (loggedUser.role !== ROLE_MANAGER) {
+            return res.status(401).json({ error: 'Unauthorized: only managers can see users' });
+        }
+
         const data = await userModel.findAll();
 
         if (!data) {
@@ -47,6 +54,12 @@ router.get('/', verifyToken, async (req, res) => {
 
 router.get('/:id', verifyToken, async (req, res) => {
     try {
+        const loggedUser = await userModel.findOne({ where: { email: req.user.email } });
+
+        if (loggedUser.role !== ROLE_MANAGER) {
+            return res.status(401).json({ error: 'Unauthorized: only managers can see users' });
+        }
+
         const data = await userModel.findOne({ where: { id: req.params.id } })
 
         if (!data) {
@@ -92,8 +105,8 @@ router.delete('/:id', verifyToken, async (req, res) => {
 
         const loggedUser = await userModel.findOne({ where: { email: req.user.email } });
 
-        if (loggedUser.role !== ROLE_TECHNICIAN) {
-            return res.status(401).json({ error: 'Unauthorized: only technicians can delete users' });
+        if (loggedUser.role !== ROLE_MANAGER) {
+            return res.status(401).json({ error: 'Unauthorized: only managers can delete users' });
         }
 
         const user = await userModel.findOne({ where: { id: req.params.id } });

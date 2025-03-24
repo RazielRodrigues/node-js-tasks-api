@@ -8,16 +8,16 @@ const {sendLog} = require('../service/logService')
 
 router.post('/', verifyToken, async (req, res) => {
     try {
-        const user = await userModel.findOne({ where: { email: req.user.email } });
+        const loggedUser = await userModel.findOne({ where: { email: req.user.email } });
 
-        if (user.role !== ROLE_TECHNICIAN) {
+        if (loggedUser.role !== ROLE_TECHNICIAN) {
             return res.status(401).json({ error: 'Unauthorized: only technicians can create tasks' });
         }
 
         const data = await taskModel.create({
             summary: req.body.summary,
             completed_at: null,
-            userId: user.id
+            userId: loggedUser.id
         })
 
         return res.status(201).json({ data: `Your task has been created with ID #${data.id}` })
@@ -28,11 +28,11 @@ router.post('/', verifyToken, async (req, res) => {
 
 router.get('/', verifyToken, async (req, res) => {
     try {
-        const user = await userModel.findOne({ where: { email: req.user.email } });
+        const loggedUser = await userModel.findOne({ where: { email: req.user.email } });
 
-        const data = user.role === ROLE_MANAGER
+        const data = loggedUser.role === ROLE_MANAGER
             ? await taskModel.findAll()
-            : await taskModel.findOne({ where: { userId: user.id } });
+            : await taskModel.findAll({ where: { userId: loggedUser.id } });
 
         if (!data) {
             return res.status(204).json({ data: data })
@@ -46,15 +46,11 @@ router.get('/', verifyToken, async (req, res) => {
 
 router.get('/:id', verifyToken, async (req, res) => {
     try {
-        const user = await userModel.findOne({ where: { email: req.user.email } });
+        const loggedUser = await userModel.findOne({ where: { email: req.user.email } });
 
-        const data = user.role === ROLE_MANAGER
+        const data = loggedUser.role === ROLE_MANAGER
             ? await taskModel.findOne({ where: { id: req.params.id } })
             : await taskModel.findOne({ where: { id: req.params.id, userId: user.id } });
-
-        if (!data && user.role !== ROLE_MANAGER) {
-            return res.status(401).json({ error: 'Unauthorized: you are not allowed to see this task' });
-        }
         
         if (!data) {
             return res.status(404).json({ data: `Task not found for ID #${req.params.id}` })
@@ -68,21 +64,19 @@ router.get('/:id', verifyToken, async (req, res) => {
 
 router.put('/:id', verifyToken, async (req, res) => {
     try {
-        const user = await userModel.findOne({ where: { email: req.user.email } });
+        const loggedUser = await userModel.findOne({ where: { email: req.user.email } });
 
-        if (user.role !== ROLE_TECHNICIAN) {
+        if (loggedUser.role !== ROLE_TECHNICIAN) {
             return res.status(401).json({ error: 'Unauthorized: only technicians can update tasks' });
         }
 
-        const task = user.role === ROLE_MANAGER
-            ? await taskModel.findOne({ where: { id: req.params.id } })
-            : await taskModel.findOne({ where: { id: req.params.id, userId: user.id } });
+        const task = await taskModel.findOne({ where: { id: req.params.id, userId: user.id } })
 
         if (!task) {
             return res.status(404).json({ data: `Task not found for ID #${req.params.id}` })
         }
 
-        const data = await taskModel.update({
+        await taskModel.update({
             summary: req.body.summary,
             completed_at: req.body.completed ? new Date() : null,
         }, { where: { id: req.params.id, } })
@@ -95,15 +89,13 @@ router.put('/:id', verifyToken, async (req, res) => {
 
 router.delete('/:id', verifyToken, async (req, res) => {
     try {
-        const user = await userModel.findOne({ where: { email: req.user.email } });
+        const loggedUser = await userModel.findOne({ where: { email: req.user.email } });
 
-        if (user.role !== ROLE_MANAGER) {
+        if (loggedUser.role !== ROLE_MANAGER) {
             return res.status(401).json({ error: 'Unauthorized: only managers can delete tasks' });
         }
 
-        const task = user.role === ROLE_MANAGER
-            ? await taskModel.findOne({ where: { id: req.params.id } })
-            : await taskModel.findOne({ where: { id: req.params.id, userId: user.id } });
+        const task = await taskModel.findOne({ where: { id: req.params.id } })
 
         if (!task) {
             return res.status(404).json({ data: `Task not found for ID #${req.params.id}` })
@@ -119,13 +111,13 @@ router.delete('/:id', verifyToken, async (req, res) => {
 
 router.patch('/completed/:id', verifyToken, async (req, res) => {
     try {
-        const user = await userModel.findOne({ where: { email: req.user.email } });
+        const loggedUser = await userModel.findOne({ where: { email: req.user.email } });
 
-        if (user.role !== ROLE_TECHNICIAN) {
+        if (loggedUser.role !== ROLE_TECHNICIAN) {
             return res.status(401).json({ error: 'Unauthorized: only technicians can update tasks' });
         }
 
-        const task = await taskModel.findOne({ where: { id: req.params.id, userId: user.id } })
+        const task = await taskModel.findOne({ where: { id: req.params.id, userId: loggedUser.id } })
 
         if (!task) {
             return res.status(404).json({ data: `Task not found for ID #${req.params.id}` })

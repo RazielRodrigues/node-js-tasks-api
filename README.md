@@ -95,3 +95,7 @@ npm run test:coverage
 
 ## Database
 <img src="./doc/database.png" />
+
+## Further improvements
+- encryption summary field
+- database migration

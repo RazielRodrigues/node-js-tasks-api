@@ -1,42 +1,64 @@
 version: '3'
 
 services:
-
   node:
-    build: ./
+    build: ./Dockerfile
     container_name: sword_health_tasks_api_node
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - BASE_URL=http://localhost
+      - PORT=3000
+      - CORS_ORIGIN='http://localhost:'
+      - JWT_SECRET=5S_AvFBQJ64QxJ3wywkEXGlraKbvIRZfzAMxu3KU
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - DB_NAME=sword_health_tasks_api
+      - DB_USERNAME=root
+      - DB_PASSWORD=sword
+      - DB_HOST=database
+      - DB_DIALECT=mysql
     volumes:
       - ./:/var/www/html/project
-    
+    command: npm start
+    networks:
+      - sword_health_tasks_api_network
+    depends_on:
+      - database
+      - rabbitmq
+
   database:
     image: mysql
-    hostname: docker-mysql
+    hostname: mysql
     container_name: sword_health_tasks_api_mysql
-    restart: "no"
     ports:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: sword
-      MYSQL_DATABASE: sword_health_tasks_api
     volumes:
       - database_data:/var/lib/mysql
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    networks:
+      - sword_health_tasks_api_network
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
+    hostname: rabbitmq
     container_name: sword_health_tasks_api_rabbitmq
     ports:
-        - 5672:5672
-        - 15672:15672
+      - 5672:5672
+      - 15672:15672
     volumes:
-        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     networks:
-        - rabbitmq_node_net
+      - sword_health_tasks_api_network
 
 volumes:
   database_data:
 
+
 networks:
-  rabbitmq_node_net:
+  sword_health_tasks_api_network:
     driver: bridge

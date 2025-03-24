@@ -54,7 +54,7 @@ cd sword-health-tasks-api
 ```
 3. Run the docker-compose
 ```bash
-docker-compose up
+docker compose up -d --build
 ```
 
 ## Testing
@@ -117,3 +117,6 @@ npm run test:coverage
 ## Further improvements
 - encryption summary field
 - database migration
+- vercel deploy
+- separate test database
+- docker env

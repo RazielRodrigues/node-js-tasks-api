@@ -6,13 +6,13 @@ WORKDIR /
 
 # Copy only package.json and package-lock.json first for caching
 COPY ./app/package*.json ./
-COPY ./app/.env ./
+COPY ./app/.env.example ./.env
 
 # Install dependencies
 RUN npm install
 
 # Copy the rest of the application files
-COPY ./ .
+COPY ./app .
 
 # Expose the default Vite port (change if needed)
 EXPOSE 3000

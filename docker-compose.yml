@@ -2,12 +2,11 @@ version: '3'
 
 services:
 
-  #node:
-  #  build: ./
-  #  container_name: sword_health_tasks_api_node
-  #  restart: "no"
-  #  volumes:
-  #    - ./:/var/www/html/project
+  node:
+    build: ./
+    container_name: sword_health_tasks_api_node
+    volumes:
+      - ./:/var/www/html/project
     
   database:
     image: mysql
@@ -23,12 +22,21 @@ services:
       - database_data:/var/lib/mysql
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
-  # mail:
-  #   image: mailhog/mailhog:latest
-  #   restart: always
-  #   ports:
-  #     - 1025:1025
-  #     - 8025:8025
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: sword_health_tasks_api_rabbitmq
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+        - rabbitmq_node_net
 
 volumes:
   database_data:
+
+networks:
+  rabbitmq_node_net:
+    driver: bridge

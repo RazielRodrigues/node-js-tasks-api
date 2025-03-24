@@ -7,7 +7,6 @@
 - [Features](#features)
 - [Tech Requirements](#tech-requirements)
 - [Installation](#installation)
-- [Usage](#usage)
 - [Testing](#testing)
 - [Tech stack](#tech-stack)
 - [Documentation](#documentation)
@@ -96,16 +95,18 @@ npm run test:coverage
 
 ## Roles
 
-- user create: OPEN
-- user read: ROLE_MANAGER
-- user update: ROLE_MANAGER & ROLE_TECHNICIAN
-- user delete: ROLE_MANAGER
+### User route
+- create: OPEN
+- read: ROLE_MANAGER
+- update: ROLE_MANAGER & ROLE_TECHNICIAN
+- delete: ROLE_MANAGER
 
-- tasks create: ROLE_TECHNICIAN
-- tasks read: ROLE_MANAGER (read all) & ROLE_TECHNICIAN (read own)
-- tasks update: ROLE_TECHNICIAN
-- tasks delete: ROLE_MANAGER
-- tasks completed: ROLE_TECHNICIAN
+### Task route
+- create: ROLE_TECHNICIAN
+- read: ROLE_MANAGER (read all) & ROLE_TECHNICIAN (read own)
+- update: ROLE_TECHNICIAN
+- delete: ROLE_MANAGER
+- completed: ROLE_TECHNICIAN
 
 ## System Design
 <img src="./doc/system.jpg" />

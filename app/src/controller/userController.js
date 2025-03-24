@@ -80,10 +80,9 @@ router.put('/:id', verifyToken, async (req, res) => {
             return res.status(404).json({ data: `User not found for ID #${req.params.id}` })
         }
 
-        const userExists = await userModel.findOne({ where: { id: req.body.email } });
-
+        const userExists = await userModel.findOne({ where: { email: req.body.email } });
         if (userExists) {
-            return res.status(404).json({ data: `User already exists` })
+            return res.status(401).json({ data: `User already exists` })
         }
 
         const hashedPassword = await bcrypt.hash(req.body.password, 10);

@@ -11,6 +11,7 @@
 - [Testing](#testing)
 - [Tech stack](#tech-stack)
 - [Documentation](#documentation)
+- [Roles](#roles)
 - [System Design](#system-design)
 
 ## Requirements
@@ -89,6 +90,22 @@ npm run test:coverage
 
 ## Documentation
 - <a href="./doc/sword_health_tasks_api_postman_collection"> Postman Documentation </a>
+- Create your user
+- Login with your user and grab the token
+- Add the token in the header and start using the API
+
+## Roles
+
+- user create: OPEN
+- user read: ROLE_MANAGER
+- user update: ROLE_MANAGER & ROLE_TECHNICIAN
+- user delete: ROLE_MANAGER
+
+- tasks create: ROLE_TECHNICIAN
+- tasks read: ROLE_MANAGER (read all) & ROLE_TECHNICIAN (read own)
+- tasks update: ROLE_TECHNICIAN
+- tasks delete: ROLE_MANAGER
+- tasks completed: ROLE_TECHNICIAN
 
 ## System Design
 <img src="./doc/system.jpg" />

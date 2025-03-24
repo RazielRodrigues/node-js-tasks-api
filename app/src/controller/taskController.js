@@ -50,7 +50,7 @@ router.get('/:id', verifyToken, async (req, res) => {
 
         const data = loggedUser.role === ROLE_MANAGER
             ? await taskModel.findOne({ where: { id: req.params.id } })
-            : await taskModel.findOne({ where: { id: req.params.id, userId: user.id } });
+            : await taskModel.findOne({ where: { id: req.params.id, userId: loggedUser.id } });
         
         if (!data) {
             return res.status(404).json({ data: `Task not found for ID #${req.params.id}` })
@@ -70,7 +70,7 @@ router.put('/:id', verifyToken, async (req, res) => {
             return res.status(401).json({ error: 'Unauthorized: only technicians can update tasks' });
         }
 
-        const task = await taskModel.findOne({ where: { id: req.params.id, userId: user.id } })
+        const task = await taskModel.findOne({ where: { id: req.params.id, userId: loggedUser.id } })
 
         if (!task) {
             return res.status(404).json({ data: `Task not found for ID #${req.params.id}` })
@@ -124,14 +124,14 @@ router.patch('/completed/:id', verifyToken, async (req, res) => {
         }
 
         const time = new Date();
-        const data = await taskModel.update({
+        await taskModel.update({
             completed_at: time,
         }, { where: { id: req.params.id, } })
 
         const text = `Task with ID #${req.params.id} updated to complete at: ` + time.toUTCString();
         await sendLog(text)
 
-        return res.status(200).json({ data: data })
+        return res.status(200).json({ data: text })
     } catch (error) {
         console.log(error)
         return res.status(500).json({ data: 'Internal server error' });

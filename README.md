@@ -58,7 +58,7 @@ docker-compose up
 ```
 
 ## Testing
-  - Run tests
+- Run tests
 ```bash
 npm run test
 ```
@@ -82,7 +82,7 @@ npm run test-coverage
 . Istanbul
 
 ## Usage
-...
+- Postman documentation ()
 
 ## System Design
 ...

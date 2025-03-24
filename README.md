@@ -1,6 +1,6 @@
 # Sword Tasks API (Senior Backend Engineer Challenge)
 
-<img src="./sword.jpg" />
+<img src="./doc/sword.jpg" />
 
 ## Table of Contents
 - [Requirements](#requirements)
@@ -10,7 +10,7 @@
 - [Usage](#usage)
 - [Testing](#testing)
 - [Tech stack](#tech-stack)
-- [Usage](#usage)
+- [Documentation](#documentation)
 - [System Design](#system-design)
 
 ## Requirements
@@ -61,10 +61,12 @@ docker-compose up
 - Run tests
 ```bash
 npm run test
+npm run test:unit
+npm run test:integration
 ```
 - Access coverage (accessing index.html in coverage folder)
 ```bash
-npm run test-coverage
+npm run test:coverage
 ```
 
 ## Tech stack
@@ -79,10 +81,17 @@ npm run test-coverage
 - JWT
 - Sequelize ORM
 - Mocha
-. Istanbul
+- Axios
+- Chai
+- NYC
+- Sequelize Mock
+- Sinon
 
-## Usage
-- Postman documentation ()
+## Documentation
+- <a href="./doc/sword_health_tasks_api_postman_collection"> Postman Documentation </a>
 
 ## System Design
-...
+<img src="./doc/system.jpg" />
+
+## Database
+<img src="./doc/database.png" />

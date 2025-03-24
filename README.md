@@ -88,7 +88,7 @@ npm run test:coverage
 - Sinon
 
 ## Documentation
-- <a href="./doc/sword_health_tasks_api_postman_collection.json"> Postman Documentation </a>
+- <a href="https://github.com/RazielRodrigues/sword-health-tasks-api/blob/main/doc/sword_health_tasks_api_postman_collection.json"> Postman Documentation </a>
 - Create your user
 - Login with your user and grab the token
 - Add the token in the header and start using the API

@@ -122,6 +122,6 @@ docker exec -it sword_health_tasks_api_node npm run test:coverage
 ## Further improvements
 - encryption summary field
 - database migration
-- vercel deploy
+- deploy
 - separate test database
 - docker env

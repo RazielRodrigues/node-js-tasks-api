@@ -62,6 +62,8 @@ http://localhost:3000/
 ```
 
 ## Testing
+<img src="./doc/test.png" />
+
 - Run tests
 ```bash
 docker exec -it sword_health_tasks_api_node npm run test:unit

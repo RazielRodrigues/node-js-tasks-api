@@ -225,7 +225,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"mail@mail.com\",\r\n    \"password\": 123456789,\r\n    \"role\": 2\r\n}",
+							"raw": "{\r\n    \"email\": \"mail@mail.com\",\r\n    \"password\": \"12345678\",\r\n    \"role\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

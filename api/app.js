@@ -30,9 +30,9 @@ app.listen(process.env.PORT, async () => {
 })
 
 // Registrando controllers
-const homeController = require('./src/controller/homeController')
+/* const homeController = require('./src/controller/homeController')
 app.use('/', homeController)
-
+ */
 const loginController = require('./src/controller/loginController')
 app.use('/login', loginController)
 

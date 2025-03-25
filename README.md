@@ -114,7 +114,8 @@ docker exec -it sword_health_tasks_api_node npm run test:coverage
 - completed: ROLE_TECHNICIAN
 
 ## System Design
-<img src="./doc/system.jpg" />
+- <a href="https://excalidraw.com/#json=qcFODiZAH89AuAvciK1JF,xQCK1SWMCI5o5NsR9b3iog"> Diagram </a>
+<img src="./doc/system.png" />
 
 ## Database
 <img src="./doc/database.png" />

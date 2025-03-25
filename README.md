@@ -69,6 +69,7 @@ http://localhost:3000/
 
 ## Testing
 <img src="./doc/test.png" />
+<img src="./doc/test2.png" />
 
 - Run tests
 ```bash

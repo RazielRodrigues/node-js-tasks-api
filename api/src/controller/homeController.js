@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-router.get('/', async (req, res) => {
+/* router.get('/', async (req, res) => {
     try {
         return res.status(200).json({
             data: {
@@ -13,6 +13,6 @@ router.get('/', async (req, res) => {
     } catch (error) {
         return res.status(500).json({ data: 'Internal server error' });
     }
-})
+}) */
 
 module.exports = router

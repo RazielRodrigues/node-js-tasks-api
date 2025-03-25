@@ -2,6 +2,12 @@
 
 <img src="./doc/sword.jpg" />
 
+## Production
+
+```
+https://sword-health-tasks-api.onrender.com/
+```
+
 ## Table of Contents
 - [Requirements](#requirements)
 - [Features](#features)
@@ -123,6 +129,7 @@ docker exec -it sword_health_tasks_api_node npm run test:coverage
 ## Further improvements
 - encryption summary field
 - database migration
-- deploy
 - separate test database
 - docker env
+- create DTO to avoid problems with request format
+. rabbitmq in production

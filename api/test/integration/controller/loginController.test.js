@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { expect } = require('chai');
-const BASE_URL = `http://localhost:${process.env.BASE_URL || 3000}`;
 
+const BASE_URL = `http://sword_health_tasks_api_node:3000`;
 
 describe('Login Route Integration Test', () => {
 
@@ -9,7 +9,7 @@ describe('Login Route Integration Test', () => {
         try {
             const invalidCredentials = {
                 email: 'mail@manager.com',
-                password: '123'
+                password: '12312'
             };
 
             const response = await axios.post(`${BASE_URL}/login`, invalidCredentials, {
@@ -30,6 +30,16 @@ describe('Login Route Integration Test', () => {
 
     it('should return token for valid credentials', async () => {
         try {
+
+            try {
+                await axios.post(`${BASE_URL}/user`, {
+                    email: 'mail@tech.com',
+                    password: '12345678',
+                    role: 2
+                });
+            } catch (error) {
+                
+            }
 
             const validCredentials = {
                 email: 'mail@manager.com',

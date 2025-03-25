@@ -1,8 +1,10 @@
 const axios = require('axios');
 const { expect } = require('chai');
-const BASE_URL = `http://localhost:${process.env.BASE_URL || 3000}`;
+
+const BASE_URL = `http://sword_health_tasks_api_node:3000`;
 
 describe('Home Route Integration Test', () => {
+
     it('should return welcome message with correct structure', async () => {
         try {
             const response = await axios.get(BASE_URL + '/');

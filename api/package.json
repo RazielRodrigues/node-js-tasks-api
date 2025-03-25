@@ -5,7 +5,6 @@
   "main": "app.js",
   "scripts": {
     "start": "node --watch --env-file=.env app.js",
-    "test": "nyc --reporter=text mocha --no-warnings --recursive \"test/**/*.js\"",
     "test:unit": "nyc --reporter=text mocha --no-warnings --recursive \"test/unit/**/*.js\"",
     "test:coverage": "nyc --reporter=html mocha",
     "test:integration": "nyc --reporter=text mocha --no-warnings --recursive \"test/integration/**/*.js\""

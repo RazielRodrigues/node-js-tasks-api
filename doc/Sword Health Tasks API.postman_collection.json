@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "07bedb09-fa35-49ac-afaa-248de2d227d5",
+		"_postman_id": "b8ae34c8-983c-46b3-983f-52e551c21a12",
 		"name": "Sword Health Tasks API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "12521160"
@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"summary\": \"TESTE DO RAZIEL\",\r\n    \"completed_at\": null,\r\n    \"status\": 1\r\n}",
+							"raw": "{\r\n    \"summary\": \"Raziel Rodrigues Task Updated\",\r\n    \"completed_at\": null\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -62,7 +62,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/task/2",
+							"raw": "http://localhost:3000/task/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -70,7 +70,7 @@
 							"port": "3000",
 							"path": [
 								"task",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -83,7 +83,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"summary\": \"TESTE DO RAZIEL UPDATE\",\r\n    \"completed_at\": null,\r\n    \"status\": 1\r\n}",
+							"raw": "{\r\n    \"summary\": \"Raziel Rodrigues Task Updated\",\r\n    \"completed_at\": null\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -91,7 +91,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/task/2",
+							"raw": "http://localhost:3000/task/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -99,7 +99,7 @@
 							"port": "3000",
 							"path": [
 								"task",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -111,7 +111,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/task/2",
+							"raw": "http://localhost:3000/task/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -119,7 +119,7 @@
 							"port": "3000",
 							"path": [
 								"task",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -128,19 +128,10 @@
 				{
 					"name": "COMPLETED",
 					"request": {
-						"method": "PUT",
+						"method": "PATCH",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"completed_at\": true\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "http://localhost:3000/task/completed/6",
+							"raw": "http://localhost:3000/task/completed/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -149,7 +140,7 @@
 							"path": [
 								"task",
 								"completed",
-								"6"
+								"1"
 							]
 						}
 					},
@@ -167,7 +158,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"a22@a.com\",\r\n    \"password\": \"12345678\",\r\n    \"role\": 2\r\n}",
+							"raw": "{\r\n    \"email\": \"raziel.rodrigues@swordhealth.com\",\r\n    \"password\": \"12345678\",\r\n    \"role\": 1 // 1 = MANAGER / 2 = TECHNICIAN\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -262,7 +253,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/user/3",
+							"raw": "http://localhost:3000/user/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -270,7 +261,7 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"3"
+								"1"
 							]
 						}
 					},
@@ -283,7 +274,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"a22@a.com\",\r\n    \"password\": \"12345678\"\r\n}",
+							"raw": "{\r\n    \"email\": \"raziel.rodrigues@swordhealth.com\",\r\n    \"password\": \"12345678\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

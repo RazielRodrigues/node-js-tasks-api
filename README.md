@@ -54,19 +54,22 @@ cd sword-health-tasks-api
 ```
 3. Run the docker-compose
 ```bash
-docker compose up -d --build
+docker compose up --build
+```
+3. Access the API
+```bash
+http://localhost:3000/
 ```
 
 ## Testing
 - Run tests
 ```bash
-npm run test
-npm run test:unit
-npm run test:integration
+docker exec -it sword_health_tasks_api_node npm run test:unit
+docker exec -it sword_health_tasks_api_node npm run test:integration
 ```
 - Access coverage (accessing index.html in coverage folder)
 ```bash
-npm run test:coverage
+docker exec -it sword_health_tasks_api_node npm run test:coverage
 ```
 
 ## Tech stack

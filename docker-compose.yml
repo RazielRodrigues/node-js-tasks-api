@@ -2,7 +2,7 @@ version: '3'
 
 services:
   node:
-    build: ./Dockerfile
+    build: ./
     container_name: sword_health_tasks_api_node
     ports:
       - "3000:3000"
@@ -20,7 +20,7 @@ services:
       - DB_HOST=database
       - DB_DIALECT=mysql
     volumes:
-      - ./:/var/www/html/project
+      - project:/var/www/html/project
     command: npm start
     networks:
       - sword_health_tasks_api_network
@@ -36,6 +36,7 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: sword
+      MYSQL_DATABASE: sword_health_tasks_api
     volumes:
       - database_data:/var/lib/mysql
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
@@ -57,6 +58,7 @@ services:
 
 volumes:
   database_data:
+  project:
 
 
 networks:

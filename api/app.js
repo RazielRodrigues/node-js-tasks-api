@@ -9,7 +9,7 @@ app.use(express.json())
 app.listen(process.env.PORT, async () => {
 
     // Healthcheck
-    console.log('\nSword health tasks API ready: ' + process.env.BASE_URL + ':' + process.env.PORT)
+    console.log('\nNode JS tasks API ready: ' + process.env.BASE_URL + ':' + process.env.PORT)
 
     // Iniciar a base de dados
     try {

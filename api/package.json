@@ -1,7 +1,7 @@
 {
-  "name": "sword-health-tasks-api",
+  "name": "node-js-tasks-api",
   "version": "1.0.0",
-  "description": "Sword health tasks api",
+  "description": "Node JS tasks api",
   "main": "app.js",
   "scripts": {
     "start": "node --watch --env-file=.env app.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RazielRodrigues/sword-health-tasks-api.git"
+    "url": "git+https://github.com/RazielRodrigues/node-js-tasks-api.git"
   },
   "author": "Raziel Rodrigues",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/RazielRodrigues/sword-health-tasks-api/issues"
+    "url": "https://github.com/RazielRodrigues/node-js-tasks-api/issues"
   },
-  "homepage": "https://github.com/RazielRodrigues/sword-health-tasks-api#readme",
+  "homepage": "https://github.com/RazielRodrigues/node-js-tasks-api#readme",
   "dependencies": {
     "amqplib": "^0.10.5",
     "bcryptjs": "^3.0.2",

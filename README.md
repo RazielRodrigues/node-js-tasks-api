@@ -1,12 +1,6 @@
-# Sword Health Tasks API
+# Node JS Tasks API
 
-<img src="./doc/sword.jpg" />
-
-## Production
-
-```
-https://sword-health-tasks-api.onrender.com/
-```
+NodeJS API for tasks
 
 ## Table of Contents
 - [Requirements](#requirements)
@@ -52,11 +46,11 @@ A task has a summary (max: 2500 characters) and a date when it was performed. Th
 ## Installation
 1. Clone the repository
 ```bash
-git clone https://github.com/RazielRodrigues/sword-health-tasks-api.git
+git clone https://github.com/RazielRodrigues/node-js-tasks-api.git
 ```
 2. Change to the project directory
 ```bash
-cd sword-health-tasks-api
+cd node-js-tasks-api
 ```
 3. Run the docker-compose
 ```bash
@@ -73,12 +67,12 @@ http://localhost:3000/
 
 - Run tests
 ```bash
-docker exec -it sword_health_tasks_api_node npm run test:unit
-docker exec -it sword_health_tasks_api_node npm run test:integration
+docker exec -it node_js_tasks_api_node npm run test:unit
+docker exec -it node_js_tasks_api_node npm run test:integration
 ```
 - Access coverage (accessing index.html in coverage folder)
 ```bash
-docker exec -it sword_health_tasks_api_node npm run test:coverage
+docker exec -it node_js_tasks_api_node npm run test:coverage
 ```
 
 ## Tech stack
@@ -100,7 +94,6 @@ docker exec -it sword_health_tasks_api_node npm run test:coverage
 - Sinon
 
 ## Documentation
-- <a href="https://github.com/RazielRodrigues/sword-health-tasks-api/blob/main/doc/sword_health_tasks_api_postman_collection.json"> Postman Documentation </a>
 - Create your user
 - Login with your user and grab the token
 - Add the token in the header and start using the API

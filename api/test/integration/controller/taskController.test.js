@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { expect } = require('chai');
 
-const BASE_URL = `http://sword_health_tasks_api_node:3000`;
+const BASE_URL = `http://node_js_tasks_api_node:3000`;
 
 describe('Task Controller Integration Tests', () => {
     let techToken = '';

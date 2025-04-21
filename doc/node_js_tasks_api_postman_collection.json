@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "b8ae34c8-983c-46b3-983f-52e551c21a12",
-		"name": "Sword Health Tasks API",
+		"name": "Node JS Tasks API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "12521160"
 	},
@@ -158,7 +158,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"raziel.rodrigues@swordhealth.com\",\r\n    \"password\": \"12345678\",\r\n    \"role\": 1 // 1 = MANAGER / 2 = TECHNICIAN\r\n}",
+							"raw": "{\r\n    \"email\": \"raziel.rodrigues@nodejs.com\",\r\n    \"password\": \"12345678\",\r\n    \"role\": 1 // 1 = MANAGER / 2 = TECHNICIAN\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -274,7 +274,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"raziel.rodrigues@swordhealth.com\",\r\n    \"password\": \"12345678\"\r\n}",
+							"raw": "{\r\n    \"email\": \"raziel.rodrigues@nodejs.com\",\r\n    \"password\": \"12345678\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

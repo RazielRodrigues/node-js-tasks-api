@@ -5,10 +5,10 @@ router.get('/', async (req, res) => {
     try {
         return res.status(200).json({
             data: {
-                message: 'Welcome to the sword health tasks API',
+                message: 'Welcome to the node js tasks API',
                 description: 'Get your token and start managing your tasks',
-                repository: 'https://github.com/RazielRodrigues/sword-health-tasks-api',
-                doc: 'https://github.com/RazielRodrigues/sword-health-tasks-api/blob/main/sword_health_tasks_api_postman_collection.json',
+                repository: 'https://github.com/RazielRodrigues/node-js-tasks-api',
+                doc: 'https://github.com/RazielRodrigues/node-js-tasks-api/blob/main/node_js_tasks_api_postman_collection.json',
         } })
     } catch (error) {
         return res.status(500).json({ data: 'Internal server error' });

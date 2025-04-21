@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { expect } = require('chai');
 
-const BASE_URL = `http://sword_health_tasks_api_node:3000`;
+const BASE_URL = `http://node_js_tasks_api_node:3000`;
 
 describe('Home Route Integration Test', () => {
 
@@ -20,8 +20,8 @@ describe('Home Route Integration Test', () => {
             );
 
             expect(response.data.data.message).to.be.a('string');
-            expect(response.data.data.message).to.equal('Welcome to the sword health tasks API');
-            expect(response.data.data.repository).to.equal('https://github.com/RazielRodrigues/sword-health-tasks-api');
+            expect(response.data.data.message).to.equal('Welcome to the node js tasks API');
+            expect(response.data.data.repository).to.equal('https://github.com/RazielRodrigues/node-js-tasks-api');
             expect(response.data.data.description).to.equal('Get your token and start managing your tasks');
             expect(response.data.data.repository).to.match(/^https:\/\/github\.com/);
             expect(response.data.data.doc).to.match(/^https:\/\/github\.com/);
